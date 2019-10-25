@@ -1,0 +1,32 @@
+---
+- name: Add certbot repository
+  apt_repository:
+    repo: "{{ _certbot_repository }}"
+
+- name: Install packages
+  apt:
+    name: "{{ _certbot_packages }}"
+
+- name: Install nginx packages
+  apt:
+    name: "{{ _certbot_nginx_packages }}"
+  when: _nginx_role is defined
+
+- name: Install apache packages
+  apt:
+    name: "{{ _certbot_apache_packages }}"
+  when: _apache_role is defined
+
+- name: Generate certificates
+  shell: >-
+    certbot certonly
+    --noninteractive
+    {{ '--nginx' if _nginx_role is defined else '--apache' }}
+    --cert-name {{ item.name }}
+    -d {{ item.domains|join(',') }}
+    {{ '--email ' ~ item.email if item.email is defined else '--register-unsafely-without-email' }}
+    --agree-tos
+    #--test-cert
+  register: _output
+  changed_when: "'Congratulations! Your certificate and chain have been saved' in _output.stdout"
+  with_items: "{{ certbot_certificates }}"

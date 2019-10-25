@@ -1,0 +1,9 @@
+---
+_certbot_role: ~
+_certbot_packages:
+  - certbot
+_certbot_apache_packages:
+  - python-certbot-apache
+_certbot_nginx_packages:
+  - python-certbot-nginx
+_certbot_repository: ppa:certbot/certbot

@@ -1,0 +1,5 @@
+[local]
+test ansible_connection=local
+
+[prod]
+prod-01 ansible_connection=ssh ansible_host=gopraise.me ansible_user=root

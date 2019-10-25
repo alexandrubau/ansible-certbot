@@ -4,10 +4,4 @@
   become_user: root
   roles:
     - test
-  vars:
-    _nginx_role: ~
-    certbot_certificates:
-      - name: gopraiseme
-        domains:
-          - gopraise.me
-          - www.gopraise.me
+  # vars:

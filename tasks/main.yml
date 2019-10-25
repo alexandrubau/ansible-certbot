@@ -26,7 +26,7 @@
     -d {{ item.domains|join(',') }}
     {{ '--email ' ~ item.email if item.email is defined else '--register-unsafely-without-email' }}
     --agree-tos
-    #--test-cert
+    # --test-cert
   register: _output
   changed_when: "'Congratulations! Your certificate and chain have been saved' in _output.stdout"
   with_items: "{{ certbot_certificates }}"
